@@ -14,13 +14,13 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule, TodoItemComponent, TodoFormComponent],
   template: `
-    <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden w-full max-w-md transition-all duration-300 transform hover:scale-101">
+    <div class="flex flex-col h-full w-full bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden transition-all duration-300">
       <div class="bg-gradient-to-r from-cyan-500 to-indigo-500 p-6">
         <h1 class="text-3xl font-bold text-white text-center mb-2">Todo List</h1>
         <p class="text-blue-100 text-center">Stay organized, be productive</p>
       </div>
       
-      <div class="p-6">
+      <div class="p-6 flex-grow w-full max-w-3xl mx-auto flex flex-col">
         <app-todo-form></app-todo-form>
         
         <div class="flex justify-center space-x-2 mb-6">
@@ -44,7 +44,7 @@ import { FormsModule } from '@angular/forms';
           </button>
         </div>
         
-        <div class="space-y-2 mb-4">
+        <div class="space-y-2 mb-4 flex-grow overflow-y-auto">
           @for (todo of filteredTodos$ | async; track todo.id) {
             <app-todo-item 
               [todo]="todo"
