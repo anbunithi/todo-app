@@ -14,80 +14,60 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule, TodoItemComponent, TodoFormComponent],
   template: `
-    <div class="todo-container">
-      <h1>Todo List</h1>
-      <h1 class="text-3xl font-bold text-cyan-300 underline">
-  Hello User
-</h1>
-      <app-todo-form></app-todo-form>
-      
-      <div class="filters">
-        <button (click)="filterTodos('all')" [class.active]="activeFilter === 'all'">All</button>
-        <button (click)="filterTodos('active')" [class.active]="activeFilter === 'active'">Active</button>
-        <button (click)="filterTodos('completed')" [class.active]="activeFilter === 'completed'">Completed</button>
+    <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden w-full max-w-md transition-all duration-300 transform hover:scale-101">
+      <div class="bg-gradient-to-r from-cyan-500 to-indigo-500 p-6">
+        <h1 class="text-3xl font-bold text-white text-center mb-2">Todo List</h1>
+        <p class="text-blue-100 text-center">Stay organized, be productive</p>
       </div>
       
-      <div class="todo-list">
-        @for (todo of filteredTodos$ | async; track todo.id) {
-          <app-todo-item 
-            [todo]="todo"
-            (toggle)="toggleTodo($event)"
-            (delete)="deleteTodo($event)">
-          </app-todo-item>
-        }
-        @empty {
-          <p class="empty-state">No todos to display.</p>
-        }
-      </div>
-      
-      <div class="todo-stats">
-        <span>{{ (activeTodos$ | async)?.length || 0 }} items left</span>
+      <div class="p-6">
+        <app-todo-form></app-todo-form>
+        
+        <div class="flex justify-center space-x-2 mb-6">
+          <button 
+            (click)="filterTodos('all')" 
+            [class]="activeFilter === 'all' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-700'" 
+            class="px-4 py-2 rounded-lg font-medium transition-colors duration-200">
+            All
+          </button>
+          <button 
+            (click)="filterTodos('active')" 
+            [class]="activeFilter === 'active' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-700'"
+            class="px-4 py-2 rounded-lg font-medium transition-colors duration-200">
+            Active
+          </button>
+          <button 
+            (click)="filterTodos('completed')" 
+            [class]="activeFilter === 'completed' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-700'"
+            class="px-4 py-2 rounded-lg font-medium transition-colors duration-200">
+            Completed
+          </button>
+        </div>
+        
+        <div class="space-y-2 mb-4">
+          @for (todo of filteredTodos$ | async; track todo.id) {
+            <app-todo-item 
+              [todo]="todo"
+              (toggle)="toggleTodo($event)"
+              (delete)="deleteTodo($event)">
+            </app-todo-item>
+          }
+          @empty {
+            <div class="text-center py-8 text-gray-500 dark:text-gray-400 italic">
+              <p>No todos to display.</p>
+              <p class="text-sm mt-2">Add a new task to get started!</p>
+            </div>
+          }
+        </div>
+        
+        <div class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <span>{{ (activeTodos$ | async)?.length || 0 }} items left</span>
+          <span>{{ (completedTodos$ | async)?.length || 0 }} completed</span>
+        </div>
       </div>
     </div>
   `,
-  styles: [`
-    .todo-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .filters {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-      gap: 10px;
-    }
-    .filters button {
-      background: none;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    .filters button.active {
-      background-color: #1976d2;
-      color: white;
-      border-color: #1976d2;
-    }
-    .todo-list {
-      margin-top: 20px;
-    }
-    .todo-stats {
-      margin-top: 20px;
-      color: #777;
-      font-size: 14px;
-    }
-    .empty-state {
-      text-align: center;
-      color: #777;
-      font-style: italic;
-    }
-  `]
+  styles: []
 })
 export class TodoListComponent implements OnInit {
   todos$: Observable<Todo[]>;
