@@ -16,7 +16,9 @@ import { FormsModule } from '@angular/forms';
   template: `
     <div class="todo-container">
       <h1>Todo List</h1>
-      
+      <h1 class="text-3xl font-bold text-cyan-300 underline">
+  Hello User
+</h1>
       <app-todo-form></app-todo-form>
       
       <div class="filters">
