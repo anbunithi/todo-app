@@ -1,7 +1,21 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
+import { todoReducer, todoFeatureKey } from './app/store/todo/todo.reducer';
+import { TodoEffects } from './app/store/todo/todo.effects';
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter([]),
+    provideStore({ [todoFeatureKey]: todoReducer }),
+    provideEffects([TodoEffects]),
+    provideStoreDevtools({
+      maxAge: 25,
+      autoPause: true,
+    })
+  ]
+}).catch(err => console.error(err));
