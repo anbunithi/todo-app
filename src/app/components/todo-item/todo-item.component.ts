@@ -43,11 +43,11 @@ import { Todo } from 'src/app/model/todo.model';
 })
 export class TodoItemComponent {
   @Input() todo!: Todo;
-  @Output() toggle = new EventEmitter<string>();
+  @Output() itemClicked = new EventEmitter<string>();
   @Output() delete = new EventEmitter<string>();
 
   onToggle() {
-    this.toggle.emit(this.todo.id);
+    this.itemClicked.emit(this.todo.id);
   }
 
   onDelete() {

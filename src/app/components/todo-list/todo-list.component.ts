@@ -48,7 +48,7 @@ import { FormsModule } from '@angular/forms';
           @for (todo of filteredTodos$ | async; track todo.id) {
             <app-todo-item 
               [todo]="todo"
-              (toggle)="toggleTodo($event)"
+              (itemClicked)="toggleTodo($event)"
               (delete)="deleteTodo($event)">
             </app-todo-item>
           }

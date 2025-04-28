@@ -1,0 +1,6 @@
+projectKey=Todo
+serverUrl=http://localhost:9000
+serverVersion=25.4.0.105899
+dashboardUrl=http://localhost:9000/dashboard?id=Todo
+ceTaskId=9353860a-efe8-4e1b-b1e4-25cdedeea556
+ceTaskUrl=http://localhost:9000/api/ce/task?id=9353860a-efe8-4e1b-b1e4-25cdedeea556
